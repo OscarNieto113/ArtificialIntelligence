@@ -1,8 +1,7 @@
 # To run this, you need to install:
 **Python Console**
 
-python -m pip install 
---upgrade pip
+python -m pip install --upgrade pip
 
 pip install numpy, pandas, matplotlib, scikit-learn
 
