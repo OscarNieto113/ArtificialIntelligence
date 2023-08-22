@@ -23,44 +23,34 @@ class LogisticRegression:
     def __init__(self, learning_rate, epochs):
         self.learning_rate = learning_rate
         self.epochs = epochs
-        self.weights = np.random.rand
         self.threshold = 0.5
+        self.theta = 0
 
     def sigmoid(self, z):
         return 1 / (1 + np.exp(-z))
     
-    def cost_function(self, y, y_pred):
+    def cross_entropy_error(self, y, y_pred):
         m = len(y)
         cost = (-1 / m) * np.sum(y * np.log(y_pred) + (1 - y) * np.log(1 - y_pred))
         return cost
     
-    def gradient_descent(self, x, y, learning_rate, epochs):
+    def gradient_descent(self, x, y):
         m, n = x.shape
-        theta = np.zeros(n)
+        self.theta = np.zeros(n)
         costs = []
-
-        for _ in range(epochs):
-            z = np.dot(x, theta)
-            y_pred = self.sigmoid(z)
-            gradient = np.dot(X.T, (y_pred - y)) / m
-            theta -= learning_rate * gradient
-            cost = self.cost_function(y, y_pred)
-            costs.append(cost)
-
-        return theta, costs
-
-    def fit(self, x, y):
-        m, n = x.shape
-        self.theta = np.random.rand(n)
-        self.costs = []
 
         for _ in range(self.epochs):
             z = np.dot(x, self.theta)
             y_pred = self.sigmoid(z)
             gradient = np.dot(x.T, (y_pred - y)) / m
             self.theta -= self.learning_rate * gradient
-            cost = self.cost_function(y, y_pred)
-            self.costs.append(cost)
+            cost = self.cross_entropy_error(y, y_pred)
+            costs.append(cost)
+
+        return costs
+
+    def fit(self, x, y):
+        self.gradient_descent(x, y)
 
     def predict(self, x):
         y_pred = self.sigmoid(np.dot(x, self.theta))
