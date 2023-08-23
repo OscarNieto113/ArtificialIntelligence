@@ -145,7 +145,7 @@ class LogisticRegression:
         self.theta = np.zeros(num_features)
         costs = []
 
-        for _ in range (self.epochs):
+        for i in range (self.epochs):
             z = np.dot(features, self.theta)
             y_pred = self.sigmoid(z)
             gradient = np.dot(features.T, (y_pred - labels)) / num_samples
