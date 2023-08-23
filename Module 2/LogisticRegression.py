@@ -68,7 +68,7 @@ def get_rates (prediction, y_test):
 def plot_error(training_costs):
     plt.plot(training_costs)
     plt.xlabel("Epochs")
-    plt.ylabel("Cost")
+    plt.ylabel("Cost-Error")
     plt.title("Training Cost Over Epochs")
     plt.show()
     
@@ -182,7 +182,7 @@ class LogisticRegression:
         return (y_pred >= self.threshold).astype(int)
 
 # ------------------------------------Model------------------------------------
-model = LogisticRegression(learning_rate=0.01, epochs=1000) #Initialize the model 
+model = LogisticRegression(learning_rate=0.03, epochs=1500) #Initialize the model 
 training_costs = model.fit(x_train, y_train) #Train the model
 
 # Make predictions
