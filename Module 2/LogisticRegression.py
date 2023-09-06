@@ -2,16 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-
-scaler = StandardScaler()# Create a StandardScaler object
-
-dataset = pd.read_csv(r'dataset.csv')
-x = dataset.iloc[:,[2,3]].values #Age, Estimated Salary
-y = dataset.iloc[:, 4].values #Purchased
-
-x_scaled = scaler.fit_transform(x) # Fit and transform the training data
-x_train, x_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=1)
 
 """
     Calculate a confusion matrix based on predicted and actual values.
@@ -29,6 +19,25 @@ def confusion_matrix(predictions, actual):
     for i in range(len(predictions)):
         conf_matrix[predictions[i]][actual[i]] += 1
     return conf_matrix
+
+"""
+    Standardize the input data using mean and standard deviation.
+
+    This function takes a dataset as input and standardizes it by subtracting the mean and dividing by the standard
+    deviation for each feature.
+
+    Parameters:
+    data (numpy.ndarray): The input dataset where each row represents a sample, and each column represents a feature.
+
+    Returns:
+    numpy.ndarray: The standardized data.
+"""
+def fit_transform(data):
+    mean = np.mean(data, axis=0) # Calculate the mean and standard deviation for each feature
+    std = np.std(data, axis=0)
+    std[std == 0] = 1.0
+    scaled_data = (data - mean) / std # Standardize the data
+    return scaled_data
 
 """
     Calculate the F1 score based on predicted and actual labels.
@@ -180,6 +189,14 @@ class LogisticRegression:
     def predict(self, x_test):
         y_pred = self.sigmoid(np.dot(x_test, self.theta))
         return (y_pred >= self.threshold).astype(int)
+
+
+dataset = pd.read_csv(r'dataset.csv')
+x = dataset.iloc[:,[2,3]].values #Age, Estimated Salary
+y = dataset.iloc[:, 4].values #Purchased
+
+x_scaled = fit_transform(x) # Fit and transform the training data
+x_train, x_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=1)
 
 # ------------------------------------Model------------------------------------
 model = LogisticRegression(learning_rate=0.03, epochs=1500) #Initialize the model 
