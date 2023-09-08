@@ -40,7 +40,11 @@ Link: https://www.kaggle.com/c/boston-housing
 ## Getting Started
 
 1. Clone this repository to your local machine.
-2. Install 
+2. Install the necessary libraries
+```bash
+pip install tensorflow pandas numpy matplotlib scikit-learn
+```
+3. Go to the correct path and run `python3 LinearRegression.py` script to train the Logistic Regression model and make predictions.
 
 ## Author
 

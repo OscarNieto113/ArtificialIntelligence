@@ -64,9 +64,6 @@ pip install numpy pandas matplotlib scikit-learn
 ```bash
 python3 LogisticRegression.py
 ```
-4. The script will train the Logistic Regression model and make predictions. It provides evaluation metrics such as accuracy, misclassification rate, true positive rate, false positive rate, true negative rate, precision, prevalence, and F1 score.
-
-5. Additionally, the script includes functions for plotting the training cost over epochs and visualizing the logistic regression model.
 
 ## Author
 Oscar Nieto Espitia
