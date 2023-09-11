@@ -129,8 +129,8 @@ evaluate_model(model, X_train_prep, y_train, X_val_prep, y_val)
 # Model improvements
 # Removing Outliers
 X_train_no_outliers, y_train_no_outliers = remove_outliers(X_train_prep, y_train)
-X_test_no_outliers, y_test_no_outliers = remove_outliers(X_test_prep, y_test)
-X_val_no_outliers, y_val_no_outliers = remove_outliers(X_val_prep, y_val)
+#X_test_no_outliers, y_test_no_outliers = remove_outliers(X_test_prep, y_test)
+#X_val_no_outliers, y_val_no_outliers = remove_outliers(X_val_prep, y_val)
 
 #Model 2
 model2 = Sequential()
@@ -149,6 +149,9 @@ model2.compile(loss='mean_squared_error',
               metrics=['mean_absolute_error'])
 
 
+plot_model(model2, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+
+
 #plot_model(model2, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
 #Train Model 2
@@ -156,9 +159,9 @@ history2 = model2.fit(
     X_train_no_outliers,
     y_train_no_outliers,
     epochs=100,
-    validation_data=(X_val_no_outliers, y_val_no_outliers)
+    validation_data=(X_val_prep, y_val)
 )
 
 # Metrics Model 1
 plot_metrics(history2)
-evaluate_model(model, X_train_no_outliers, y_train_no_outliers, X_val_no_outliers, y_val_no_outliers)
+evaluate_model(model2, X_train_no_outliers, y_train_no_outliers, X_val_prep, y_val)
